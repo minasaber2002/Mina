@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      // Safeguard against "Cannot set property fetch of #<Window> which has only a getter"
+      // when environment or proxy scripts attempt to wrap or reassign window.fetch.
+      (function() {
+        try {
+          var target = typeof window !== 'undefined' ? window : globalThis;
+          var initialFetch = target.fetch;
+          var currentFetch = typeof initialFetch === 'function' ? initialFetch.bind(target) : initialFetch;
+
+          Object.defineProperty(target, 'fetch', {
+            get: function() {
+              return currentFetch;
+            },
+            set: function(newFetch) {
+              currentFetch = newFetch;
+            },
+            configurable: true,
+            enumerable: true
+          });
+
+          if (typeof Window !== 'undefined' && Window.prototype) {
+            try {
+              var desc = Object.getOwnPropertyDescriptor(Window.prototype, 'fetch');
+              if (!desc || !desc.set || !desc.writable) {
+                Object.defineProperty(Window.prototype, 'fetch', {
+                  get: function() {
+                    return currentFetch;
+                  },
+                  set: function(newFetch) {
+                    currentFetch = newFetch;
+                  },
+                  configurable: true,
+                  enumerable: true
+                });
+              }
+            } catch (err) {}
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>منصة الحضور والغياب المدرسية</title>
+    <meta name="description" content="نظام إدارة الحضور والغياب للطلبة والمدرسين مع لوحة تحكم مخصصة للمعلم وصفحة إدارة شاملة للأدمن" />
+    <meta property="og:title" content="منصة الحضور والغياب المدرسية" />
+    <meta property="og:description" content="نظام إدارة الحضور والغياب للطلبة والمدرسين مع لوحة تحكم مخصصة للمعلم وصفحة إدارة شاملة للأدمن" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="font-sans antialiased bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

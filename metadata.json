@@ -1,0 +1,6 @@
+{
+  "name": "منصة الحضور والغياب المدرسية",
+  "description": "نظام إدارة الحضور والغياب للطلبة والمدرسين مع لوحة تحكم مخصصة للمعلم وصفحة إدارة شاملة للأدمن",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
